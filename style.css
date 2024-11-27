@@ -1,3 +1,8 @@
+/** UI revamp in the future! **/
+* {
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
 html {
     display: grid;
     align-items: center;
@@ -7,7 +12,60 @@ html {
 
 h1 {
     text-align: center;
-    font-size: 4em;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 4rem;
     color: rgb(20, 20, 20);
+}
+
+/** Game UI Style **/
+#container {
+    display: grid;
+    justify-content: center;
+
+}
+
+/** Player UI **/
+.container-players {
+    display: flex;
+    justify-content: space-evenly;
+
+    width: 650px;
+}
+
+.player-wrapper, .bot-wrapper {
+    display: flex;
+    justify-content: center;
+    font-size: 1.5rem;
+
+    border: 3px solid  rgb(20, 20, 20);
+    border-radius: 5px;
+    width: 30%;
+}
+
+/** Button UI **/
+.button-container {
+    display: flex;
+    justify-content: space-evenly;
+
+    margin-top: 40px;
+}
+
+.button-container button {
+    font-size: 2rem;
+    padding: 10px;
+    width: 6em;
+
+    border-radius: 5px;
+}
+
+/** Score Board **/
+.score-board-container {
+    display: flex;
+    justify-content: center;
+
+    margin-top: 40px;
+    height: 100px;
+}
+
+.score-board-container {
+    font-size: 2rem;
 }

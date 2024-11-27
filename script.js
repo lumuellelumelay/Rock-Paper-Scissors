@@ -1,76 +1,80 @@
-const getComputerChoice = function () {
+// Note: added features:
+// --> Tie functionality
+// --> Restart button: with bot or player reached 5 points
+// --> announcing the results during the game
+// --> optimize javascript
+
+const humanChoice = document.querySelector('#player-choice');
+const scoreBoard = document.querySelector('.score-board');
+const playerScore = document.querySelector('.p-score');
+const cpuScore = document.querySelector('.b-score');
+
+let humanScore = 0,
+  botScore = 0;
+
+// for anouncing the winner
+const announceWinner = function (humanScore, botScore) {
+  const score = document.createElement('span');
+  scoreBoard.appendChild(score);
+
+  if (humanScore === 5) {
+    score.textContent = 'You Win!';
+  } else if (botScore === 5) {
+    score.textContent = 'Bot Win!';
+  }
+};
+
+// bot choice algorithm
+const computerChoice = function () {
   const choice = ['rock', 'paper', 'scissors'];
 
   return choice[Math.floor(Math.random() * 3)];
 };
 
-const getHumanChoice = function () {
-  return prompt('Rock, Paper, or Scissors?').toLowerCase();
-};
-
-const playRound = function (humanChoice, computerChoice) {
+// playing round
+const playRound = function (humanChoice) {
   switch (humanChoice) {
     case 'rock':
-      if (computerChoice === 'scissors') {
-        console.log('You win! "Rock" beats "Scissors"');
+      if (computerChoice() === 'scissors') {
         return true;
-      } else if (computerChoice === 'paper') {
-        console.log('You lose! "Paper" beats "Rock"');
+      } else if (computerChoice() === 'paper') {
         return false;
       }
       break;
 
     case 'paper':
-      if (computerChoice === 'rock') {
-        console.log('You win! "Paper" beats "Rock"');
+      if (computerChoice() === 'rock') {
         return true;
-      } else if (computerChoice === 'scissors') {
-        console.log('You lose! "Scissors" beats "Paper"');
+      } else if (computerChoice() === 'scissors') {
         return false;
       }
       break;
 
     case 'scissors':
-      if (computerChoice === 'paper') {
-        console.log('You win! "Scissors" beats "Paper"');
+      if (computerChoice() === 'paper') {
         return true;
-      } else if (computerChoice === 'rock') {
-        console.log('You lose! "Rock" beats "Scissors"');
+      } else if (computerChoice() === 'rock') {
         return false;
       }
       break;
-
-    default:
-      console.log('You must choose: "Rock", "Paper", or "Scissors" only!');
   }
 };
 
-const playGame = function (playRounds, rounds) {
-  let humanScore = 0,
-    botScore = 0;
+const playGame = function (e) {
+  const target = e.target;
 
-  while (rounds > 0) {
-    const results = playRounds();
-    if (results === true) {
-      humanScore++;
-      rounds--;
-    }
-    if (results === false) {
-      botScore++;
-      rounds--;
-    }
+  let results = playRound(target.className);
+  if (results === true) {
+    humanScore++;
+    playerScore.textContent = humanScore;
+  } else {
+    botScore++;
+    cpuScore.textContent = botScore;
   }
 
-  if (rounds === 0) {
-    return humanScore > botScore
-      ? `You win! You: ${humanScore} | Computer: ${botScore}`
-      : `The computer win! You: ${humanScore} | Computer: ${botScore}`;
+  if (humanScore === 5 || botScore === 5) {
+    announceWinner(humanScore, botScore);
   }
 };
 
-const results = playGame(
-  () => playRound(getHumanChoice(), getComputerChoice()),
-  5
-);
-
-console.log(results);
+humanChoice.addEventListener('click', playGame);

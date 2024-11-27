@@ -22,7 +22,7 @@ const announceWinner = function (humanScore, botScore) {
 const computerChoice = function () {
   const choice = ['rock', 'paper', 'scissors'];
 
-  return choice[Math.floor(Math.random() * 3)];
+  return choice[Math.floor(Math.random() * choice.length - 1)];
 };
 
 // playing round

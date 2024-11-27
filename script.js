@@ -1,7 +1,3 @@
-// Note: added features:
-// --> Restart button: with bot or player reached 5 points
-// --> optimize javascript
-
 const humanChoice = document.querySelector('#player-choice');
 const scoreBoard = document.querySelector('.score-board');
 const playerScore = document.querySelector('.p-score');
@@ -86,6 +82,15 @@ const playGame = function (e) {
 
   if (humanScore === 5 || botScore === 5) {
     announceWinner(humanScore, botScore);
+
+    // simple restart functionality when the player reach 5 points
+    setTimeout(() => {
+      score.textContent = '';
+    }, 3000);
+
+    humanScore = botScore = 0;
+    playerScore.textContent = humanScore;
+    cpuScore.textContent = botScore;
   }
 };
 
